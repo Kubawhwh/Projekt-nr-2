@@ -6,7 +6,6 @@ body {
   color: #222;
 }
 
-
 .layout {
   display: flex;
   min-height: 100vh;
@@ -66,7 +65,15 @@ body {
   flex-wrap: wrap;
   gap: 16px;
 }
+.product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
 .product-card {
+  flex: 0 1 220px;
   width: 220px;
   padding: 12px;
   border: 1px solid #eee;
@@ -94,3 +101,5 @@ body {
   font-weight: 700;
   margin-top: 8px;
 }
+
+/* I added assets that are just SS frome the photo of the web page on classroms */
