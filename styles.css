@@ -18,6 +18,8 @@ body {
   border-right: 1px solid #e1e4e8;
   padding: 16px;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 .sidebar-header {
   font-weight: 700;
@@ -29,17 +31,92 @@ body {
   margin: 8px 0;
 }
 .menu-item {
-  padding: 6px 8px;
-  border-radius: 4px;
+  padding: 8px 10px;
+  border-radius: 8px;
   color: #333;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 120ms ease, box-shadow 120ms ease,
+    transform 120ms ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 .menu-item.active {
   background: #e9eef8;
 }
 
+.menu-item:hover,
+.menu-item:focus,
+.menu-item:active {
+  background: rgba(233, 238, 248, 0.9);
+}
+
+.menu-item:focus-visible {
+  outline: 2px solid rgba(99, 102, 241, 0.9);
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+
+.menu-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: linear-gradient(180deg, #e9eef8, #dbe6fb);
+  display: inline-block;
+  flex: 0 0 28px;
+}
+.menu-item .menu-label {
+  display: inline-block;
+}
+.menu-item.active .menu-icon {
+  background: linear-gradient(180deg, #febf69, #ff8a4b);
+  box-shadow: 0 4px 10px rgba(255, 138, 75, 0.14);
+}
+.menu-item:hover .menu-icon {
+  transform: translateY(-2px);
+}
+
+.menu-item.dashboard .menu-icon {
+  background-image: url("Assets/dashboard.png");
+  background-size: cover;
+  background-position: center;
+}
+.menu-item.food .menu-icon {
+  background-image: url("Assets/restaurant.png");
+  background-size: cover;
+  background-position: center;
+}
+.menu-item.messages .menu-icon {
+  background-image: url("Assets/email.png");
+  background-size: cover;
+  background-position: center;
+}
+.menu-item.bills .menu-icon {
+  background-image: url("Assets/receipt.png");
+  background-size: cover;
+  background-position: center;
+}
+.menu-item.settings .menu-icon {
+  background-image: url("Assets/setting.png");
+  background-size: cover;
+  background-position: center;
+}
+.menu-item.notifications .menu-icon {
+  background-image: url("Assets/notification.png");
+  background-size: cover;
+  background-position: center;
+}
+.menu-item.support .menu-icon {
+  background-image: url("Assets/suport.png");
+  background-size: cover;
+  background-position: center;
+}
+
 .main-content {
   flex: 1;
   padding: 20px;
+  position: relative;
 }
 .page-header {
   display: flex;
@@ -64,11 +141,6 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
-}
-.product-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
   justify-content: flex-start;
   align-items: flex-start;
 }
@@ -79,6 +151,10 @@ body {
   border: 1px solid #eee;
   border-radius: 8px;
   background: #fff;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
 }
 .product-img {
   width: 100%;
@@ -102,4 +178,126 @@ body {
   margin-top: 8px;
 }
 
-/* I added assets that are just SS frome the photo of the web page on classroms */
+.main-content.dim::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.18);
+  z-index: 5;
+  pointer-events: none;
+}
+.product-card:hover,
+.product-card.focused {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 40px rgba(12, 12, 20, 0.1);
+  z-index: 10;
+}
+
+.menu-item.pressed {
+  transform: translateY(0);
+  box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.03);
+}
+
+.sidebar-footer {
+  margin-top: auto;
+}
+
+.sidebar-footer .user-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  box-shadow: 0 6px 18px rgba(20, 20, 30, 0.06);
+}
+.sidebar-footer .user-card .user-info {
+  display: flex;
+  flex-direction: column;
+}
+.sidebar-footer .user-card .name {
+  font-weight: 700;
+}
+.sidebar-footer .user-card .role,
+.sidebar-footer .user-card .shift {
+  font-size: 12px;
+  color: #666;
+}
+.sidebar-footer .user-card .avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #eee;
+  flex: 0 0 48px;
+}
+.sidebar-footer .user-card .profile-btn {
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: none;
+  background: #f3f4f6;
+}
+@media (max-width: 800px) {
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 56px;
+    padding: 8px;
+    z-index: 40;
+    transition: width 180ms ease, padding 180ms ease;
+    overflow: hidden;
+  }
+
+  .sidebar:hover,
+  .sidebar:focus-within,
+  .sidebar.expanded {
+    width: 220px;
+    padding: 12px;
+  }
+
+  .layout {
+    min-height: 100vh;
+  }
+
+  .main-content {
+    margin-left: 56px;
+    transition: margin-left 180ms ease;
+  }
+  .sidebar:hover + .main-content,
+  .sidebar:focus-within + .main-content,
+  .sidebar.expanded + .main-content {
+    margin-left: 0;
+  }
+
+  .product-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+  .product-card {
+    flex: 0 0 220px;
+    width: 220px;
+    padding: 12px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    background: #fff;
+    box-sizing: border-box;
+  }
+
+  .sidebar .logo-text {
+    display: none;
+  }
+  .sidebar .logo-icon {
+    width: 28px;
+    height: 28px;
+    display: inline-block;
+  }
+  .sidebar .menu {
+    margin-top: 6px;
+  }
+
+  .menu-item {
+    white-space: nowrap;
+  }
+}

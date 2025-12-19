@@ -20,22 +20,22 @@
         </div>
 
         <ul class="menu">
-          <li class="menu-item">Dashboard</li>
-          <li class="menu-item active">Food & Drinks</li>
-          <li class="menu-item">Messages</li>
-          <li class="menu-item">Bills</li>
-          <li class="menu-item">Settings</li>
+          <li class="menu-item dashboard" role="button" tabindex="0"><span class="menu-icon" aria-hidden="true"></span><span class="menu-label">Dashboard</span></li>
+          <li class="menu-item active food" role="button" tabindex="0"><span class="menu-icon" aria-hidden="true"></span><span class="menu-label">Food & Drinks</span></li>
+          <li class="menu-item messages" role="button" tabindex="0"><span class="menu-icon" aria-hidden="true"></span><span class="menu-label">Messages</span></li>
+          <li class="menu-item bills" role="button" tabindex="0"><span class="menu-icon" aria-hidden="true"></span><span class="menu-label">Bills</span></li>
+          <li class="menu-item settings" role="button" tabindex="0"><span class="menu-icon" aria-hidden="true"></span><span class="menu-label">Settings</span></li>
         </ul>
 
         <div class="menu-section-label">Other</div>
         <ul class="menu">
-          <li class="menu-item">Notifications</li>
-          <li class="menu-item">Support</li>
+          <li class="menu-item notifications" role="button" tabindex="0"><span class="menu-icon" aria-hidden="true"></span><span class="menu-label">Notifications</span></li>
+          <li class="menu-item support" role="button" tabindex="0"><span class="menu-icon" aria-hidden="true"></span><span class="menu-label">Support</span></li>
         </ul>
 
         <div class="sidebar-footer">
           <div class="user-card">
-            <div class="avatar"></div>
+            <img class="avatar" src="Assets/theresa.png" alt="Theresa Webb" />
             <div class="user-info">
               <div class="name">Theresa Webb</div>
               <div class="role">Waiter</div>
@@ -123,5 +123,66 @@
         </section>
       </main>
     </div>
+</div>
+
+<script>
+  (function () {
+    var mainContent = document.querySelector('.main-content');
+    if (mainContent === null) {
+      return;
+    }
+
+    var productCards = document.querySelectorAll('.product-card');
+
+    for (var i = 0; i < productCards.length; i++) {
+      var card = productCards[i];
+
+      if (!card.hasAttribute('tabindex')) {
+        card.setAttribute('tabindex', '0');
+      }
+
+      card.addEventListener('mouseenter', function () {
+        mainContent.classList.add('dim');
+        this.classList.add('focused');
+      });
+
+      card.addEventListener('mouseleave', function () {
+        mainContent.classList.remove('dim');
+        this.classList.remove('focused');
+      });
+
+      card.addEventListener('focus', function () {
+        mainContent.classList.add('dim');
+        this.classList.add('focused');
+      });
+
+      card.addEventListener('blur', function () {
+        mainContent.classList.remove('dim');
+        this.classList.remove('focused');
+      });
+    }
+
+    var menuItems = document.querySelectorAll('.menu-item[role="button"]');
+
+    for (var j = 0; j < menuItems.length; j++) {
+      var item = menuItems[j];
+
+      item.addEventListener('click', function (e) {
+        this.classList.add('pressed');
+
+        setTimeout(() => {
+          this.classList.remove('pressed');
+        }, 140);
+      });
+
+      item.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          this.click();
+        }
+      });
+    }
+  })();
+</script>
   </body>
 </html>
